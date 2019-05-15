@@ -51,7 +51,7 @@ ADD entrypoint.sh /
 
 RUN chmod 777 /entrypoint.sh
 
-#        Hive Port  SparkMasterWebUI  SparkWorkerWebUI REST     Jupyter Spark		Thrift
+#        Hive Port  
 EXPOSE    9083
 
 ENTRYPOINT ["/entrypoint.sh"]
