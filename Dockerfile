@@ -35,8 +35,8 @@ RUN cd /opt && \
     cp $BDLCL_HOME/lib/* $HADOOP_HOME/share/hadoop/common/lib/ && \
     wget http://central.maven.org/maven2/com/lmax/disruptor/3.3.4/disruptor-3.3.4.jar && \
     cp /opt/disruptor-3.3.4.jar $BDLCL_HOME/lib/ && \
-    cp disruptor-3.3.4.jar $HIVE_HOME/lib/ && \
-    cp disruptor-3.3.4.jar $HADOOP_HOME/share/hadoop/common/lib/ && \
+    cp /opt/disruptor-3.3.4.jar $HIVE_HOME/lib/ && \
+    cp /opt/disruptor-3.3.4.jar $HADOOP_HOME/share/hadoop/common/lib/ && \
     
     #make sure all properties files are ok configured
     cp $HIVE_HOME/conf/hive-log4j2.properties.template $HIVE_HOME/conf/hive-log4j2.properties
