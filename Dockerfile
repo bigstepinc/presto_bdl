@@ -44,7 +44,7 @@ RUN cd /opt && \
 #Add configuration files
 ADD log4j2.xml.default $HADOOP_HOME/etc/hadoop/log4j2.xml
 ADD core-site.xml.apiKey $HIVE_HOME/conf/
-ADD hive-site.xml $HIVE_HOME/conf/hive-site.xml.template
+ADD hive-site.xml $HIVE_HOME/conf/hive-site.xml
 ADD entrypoint.sh /
 
 RUN chmod 777 /entrypoint.sh
