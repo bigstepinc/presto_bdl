@@ -10,8 +10,6 @@ ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION
 ENV JAVA_HOME /usr
 ENV PATH=$PATH:$HADOOP_HOME:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME:$HIVE_HOME/bin:$BDLCL_HOME/bin:$JAVA_HOME
 
-ADD entrypoint.sh /
-
 RUN apt-get update && \
     apt-get install wget openjdk-8-jre
     
@@ -44,7 +42,7 @@ RUN cd /opt && \
     cp $HIVE_HOME/conf/hive-log4j2.properties.template $HIVE_HOME/conf/hive-log4j2.properties
 
 #Add configuration files
-ADD log4j2.xml $HADOOP_HOME/etc/hadoop/
+ADD log4j2.xml.default $HADOOP_HOME/etc/hadoop/log4j2.xml
 ADD core-site.xml.apiKey $HIVE_HOME/conf/
 ADD hive-site.xml $HIVE_HOME/conf/hive-site.xml.template
 ADD entrypoint.sh /
