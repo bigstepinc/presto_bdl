@@ -110,6 +110,9 @@ if [ "$DB_TYPE" == "postgresql" ]; then
 	#psql -h $POSTGRES_HOSTNAME -p $POSTGRES_PORT  -U  $DB_USER -d $DB_NAME -f $SPARK_HOME/jars/hive-schema-1.2.0.postgres.sql
 	cp $HIVE_HOME/conf/hive-site.xml $HIVE_HOME/conf/hive-default.xml
 	cp $HIVE_HOME/conf/hive-site.xml $HADOOP_HOME/etc/hadoop/hive-site.xml
+	
+	#this will be optional until we update the projects or data pool code
+	schematool -dbType postgres -upgradeSchema
 fi
 
 #Fix python not found file/directory issues
