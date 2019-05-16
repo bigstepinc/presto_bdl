@@ -122,6 +122,8 @@ ln -s /usr/local/bin/python3.6 /usr/bin/python
 rm -rf /opt/bigstepdatalake-$BDLCL_VERSION/conf/core-site.xml
 cp $HADOOP_HOME/etc/hadoop/core-site.xml $BDLCL_HOME/conf/
 
+rm $HIVE_HOME/lib/disruptor-3.3.0.jar 
+
 mkdir /tmp/hive 
 chmod -R 777 /tmp/hive
 
