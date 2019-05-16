@@ -1,55 +1,53 @@
-FROM ubuntu:16.04
+FROM openjdk:8-jre-slim
 
-ENV HIVE_VERSION 2.3.2
-ENV BDLCL_VERSION 0.12.1
-ENV HADOOP_VERSION 2.7.6
+ENV PRESTO_VERSION=311
+ENV BDLCL_VERSION=0.12.1
+ENV PRESTO_HOME /opt/presto
+ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION-bin
+ENV PRESTO_USER presto
+ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
+ENV PATH $PATH:$PRESTO_HOME/bin
+ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
-ENV HIVE_HOME /opt/apache-hive-$HIVE_VERSION-bin
-ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
-ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION
-ENV JAVA_HOME /usr
-ENV PATH=$PATH:$HADOOP_HOME:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME:$HIVE_HOME/bin:$BDLCL_HOME/bin:$JAVA_HOME
-
-RUN apt-get -y update && \
-    apt-get install -y wget openjdk-8-jre
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated curl wget less && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
     
+USER root
+
+RUN useradd \
+		--create-home \
+		--home-dir ${PRESTO_HOME} \
+        --shell /bin/bash \
+		$PRESTO_USER
+
 RUN cd /opt && \
-    #Install hadoop
-    wget https://archive.apache.org/dist/hadoop/core/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz && \
-    tar xzvf hadoop-$HADOOP_VERSION.tar.gz && \
-    rm -rf hadoop-$HADOOP_VERSION.tar.gz && \
-    
-    #Install bdl client libraries
+    wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
+    tar xzvf presto-server-$PRESTO_VERSION.tar.gz && \
+    rm presto-server-$PRESTO_VERSION.tar.gz && \
+    mv resto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
+    rm -rf presto-server-${PRESTO_VERSION} && \
+    mkdir -p ${PRESTO_CONF_DIR}/catalog/ && \
+    mkdir -p ${PRESTO_HOME}/data && \
+    cd ${PRESTO_HOME}/bin && \
+    wget https://repo1.maven.org/maven2/io/prestosql/presto-cli/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
+    mv presto-cli-${PRESTO_VERSION}-executable.jar presto && \
+    chmod +x presto && \
+    chown -R ${PRESTO_USER}:${PRESTO_USER} $PRESTO_HOME && \ 
+    cd /opt && \
     wget https://repo.lentiq.com/bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     tar xzvf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     rm -rf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
-    
-    #Install hive
-    wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
-    tar xzvf apache-hive-$HIVE_VERSION-bin.tar.gz && \
-    rm -rf apache-hive-$HIVE_VERSION-bin.tar.gz && \
+    cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/
 
-    #make sure all libraries are in the correct classpath
-    cp $BDLCL_HOME/lib/* $HIVE_HOME/lib/ && \
-    wget https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar -P $HIVE_HOME/lib/ && \
-    cp $BDLCL_HOME/lib/* $HADOOP_HOME/share/hadoop/common/lib/ && \
-    wget http://central.maven.org/maven2/com/lmax/disruptor/3.3.4/disruptor-3.3.4.jar && \
-    cp /opt/disruptor-3.3.4.jar $BDLCL_HOME/lib/ && \
-    cp /opt/disruptor-3.3.4.jar $HIVE_HOME/lib/ && \
-    cp /opt/disruptor-3.3.4.jar $HADOOP_HOME/share/hadoop/common/lib/ && \
-    
-    #make sure all properties files are ok configured
-    cp $HIVE_HOME/conf/hive-log4j2.properties.template $HIVE_HOME/conf/hive-log4j2.properties
+# Need to work with python2
+# See: https://github.com/prestodb/presto/issues/4678
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		python="${PYTHON2_DEBIAN_VERSION}" \
+	&& rm -rf /var/lib/apt/lists/* \
+    && cd /usr/local/bin \
+	&& rm -rf idle pydoc python python-config 
 
-#Add configuration files
-ADD log4j2.xml.default $HADOOP_HOME/etc/hadoop/log4j2.xml
-ADD core-site.xml.apiKey $HIVE_HOME/conf/
-ADD hive-site.xml $HIVE_HOME/conf/hive-site.xml
-ADD entrypoint.sh /
+USER $PRESTO_USER
 
-RUN chmod 777 /entrypoint.sh
-
-#        Hive Port  
-EXPOSE    9083
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["launcher", "run"]
