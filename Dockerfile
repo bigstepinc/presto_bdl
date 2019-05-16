@@ -53,4 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 USER $PRESTO_USER
 
+#      PrestoUI
+EXPOSE 8080
+
 CMD ["launcher", "run"]
