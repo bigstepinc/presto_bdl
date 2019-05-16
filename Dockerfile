@@ -9,6 +9,9 @@ ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
 ENV PATH $PATH:$PRESTO_HOME/bin
 ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
+ADD presto.sh /etc/presto
+ADD healthcheck.sh /etc/presto
+
 RUN apt-get update && \
     apt-get install -y --allow-unauthenticated curl wget less && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
