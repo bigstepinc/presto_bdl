@@ -25,7 +25,7 @@ RUN cd /opt && \
     wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
     tar xzvf presto-server-$PRESTO_VERSION.tar.gz && \
     rm presto-server-$PRESTO_VERSION.tar.gz && \
-    mv resto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
+    mv presto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
     rm -rf presto-server-${PRESTO_VERSION} && \
     mkdir -p ${PRESTO_CONF_DIR}/catalog/ && \
     mkdir -p ${PRESTO_HOME}/data && \
