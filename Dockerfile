@@ -2,11 +2,17 @@ FROM openjdk:8-jre-slim
 
 ENV PRESTO_VERSION=311
 ENV BDLCL_VERSION=0.12.1
-ENV PRESTO_HOME /opt/presto
-ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION
+
+ENV PRESTO_HOME /presto
 ENV PRESTO_USER presto
 ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
 ENV PATH $PATH:$PRESTO_HOME/bin
+
+#ENV PRESTO_HOME /opt/presto
+ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION
+ENV PRESTO_USER presto
+#ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
+#ENV PATH $PATH:$PRESTO_HOME/bin
 ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
 RUN apt-get update && \
@@ -21,8 +27,7 @@ RUN useradd \
         --shell /bin/bash \
 		$PRESTO_USER
 
-RUN cd /opt && \
-    wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
+RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
     tar xzvf presto-server-$PRESTO_VERSION.tar.gz && \
     rm presto-server-$PRESTO_VERSION.tar.gz && \
     mv presto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
@@ -33,7 +38,7 @@ RUN cd /opt && \
     wget https://repo1.maven.org/maven2/io/prestosql/presto-cli/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
     mv presto-cli-${PRESTO_VERSION}-executable.jar presto && \
     chmod +x presto && \
-    chown -R ${PRESTO_USER}:${PRESTO_USER} $PRESTO_HOME && \ 
+#    chown -R ${PRESTO_USER}:${PRESTO_USER} $PRESTO_HOME && \ 
     cd /opt && \
     wget https://repo.lentiq.com/bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     tar xzvf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
