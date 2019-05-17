@@ -40,15 +40,18 @@ RUN cd /opt && \
     rm -rf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/ && \
     mkdir /etc/presto 
-    
+       
+ADD presto.sh /etc/presto/
+ADD healthcheck.sh /etc/presto/
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python="${PYTHON2_DEBIAN_VERSION}" \
 	&& rm -rf /var/lib/apt/lists/* \
     && cd /usr/local/bin \
-	&& rm -rf idle pydoc python python-config
-    
-ADD presto.sh /etc/presto/
-ADD healthcheck.sh /etc/presto/
+	&& rm -rf idle pydoc python python-config && \
+	chmod 777 /etc/presto/presto.sh && \
+	chmod 777 /etc/presto/healthcheck.sh
+ 
 
 USER $PRESTO_USER
 
