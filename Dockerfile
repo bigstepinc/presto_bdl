@@ -11,12 +11,7 @@ ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
 RUN apt-get update && \
     apt-get install -y --allow-unauthenticated curl wget less && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    apt-get install -y --no-install-recommends \
-		python="${PYTHON2_DEBIAN_VERSION}" \
-	&& rm -rf /var/lib/apt/lists/* \
-    && cd /usr/local/bin \
-	&& rm -rf idle pydoc python python-config
+    apt-get clean && rm -rf /var/lib/apt/lists/* 
     
 USER root
 
@@ -45,6 +40,12 @@ RUN cd /opt && \
     rm -rf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/ && \
     mkdir /etc/presto 
+    
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		python="${PYTHON2_DEBIAN_VERSION}" \
+	&& rm -rf /var/lib/apt/lists/* \
+    && cd /usr/local/bin \
+	&& rm -rf idle pydoc python python-config
     
 ADD presto.sh /etc/presto/
 ADD healthcheck.sh /etc/presto/
