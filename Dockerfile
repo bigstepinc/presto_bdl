@@ -49,11 +49,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
     && cd /usr/local/bin \
 	&& rm -rf idle pydoc python python-config && \
+	chmod 777 -R /etc/presto && \
 	chmod 777 /etc/presto/presto.sh && \
 	chmod 777 /etc/presto/healthcheck.sh
  
 
-USER $PRESTO_USER
+#USER $PRESTO_USER
 
 #      PrestoUI
 EXPOSE 8080
