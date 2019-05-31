@@ -50,6 +50,7 @@ ADD presto.sh /etc/presto/
 ADD healthcheck.sh /etc/presto/
 ADD jvm.config /etc/presto/
 ADD log.properties /etc/presto/
+ADD node.properties /etc/presto/
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python="${PYTHON2_DEBIAN_VERSION}" \
