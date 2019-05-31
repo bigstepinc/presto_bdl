@@ -25,6 +25,13 @@ cp /etc/presto/jvm.config /presto/etc/jvm.config
 cp /etc/presto/log.properties /presto/etc/log.properties
 cp /etc/presto/node.properties /presto/etc/node.properties
 
+# define the catalog log.properties file
+touch /presto/etc/catalog/log.properties
+echo "connector.name=localfile" >> /presto/etc/catalog/log.properties
+echo "presto-logs.http-request-log.location=/presto/etc/data/var/log" >> /presto/etc/catalog/log.properties
+echo "presto-logs.http-request-log.pattern=*.log" >> /presto/etc/catalog/log.properties
+cp /presto/etc/catalog/log.properties /etc/presto/catalog/log.properties
 
-
-
+# move the bdlcl libraries
+cp /opt/bigstepdatalake-0.12.1/lib/* /presto/plugin/hive-hadoop2/
+rm /presto/plugin/hive-hadoop2/aws-java-sdk-1.7.4.jar
