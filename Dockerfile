@@ -49,6 +49,7 @@ RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSI
 ADD presto.sh /etc/presto/
 ADD healthcheck.sh /etc/presto/
 ADD jvm.config /etc/presto/
+ADD log.properties /etc/presto/
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python="${PYTHON2_DEBIAN_VERSION}" \
