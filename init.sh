@@ -21,6 +21,7 @@ if [ "$DISCOVERY_URI" != "" ]; then
 fi
 
 cp /presto/etc/config.properties /etc/presto/config.properties
+cp /etc/presto/jvm.config /presto/etc/jvm.config
 
 
 
