@@ -51,6 +51,7 @@ ADD healthcheck.sh /etc/presto/
 ADD jvm.config /etc/presto/
 ADD log.properties /etc/presto/
 ADD node.properties /etc/presto/
+ADD init.sh /etc/presto/
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python="${PYTHON2_DEBIAN_VERSION}" \
@@ -59,7 +60,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf idle pydoc python python-config && \
 	chmod 777 -R /etc/presto && \
 	chmod 777 /etc/presto/presto.sh && \
-	chmod 777 /etc/presto/healthcheck.sh
+	chmod 777 /etc/presto/healthcheck.sh && \
+	chmod 777 /etc/presto/init.sh
+	
  
 
 #USER $PRESTO_USER
