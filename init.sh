@@ -23,6 +23,8 @@ fi
 cp /presto/etc/config.properties /etc/presto/config.properties
 cp /etc/presto/jvm.config /presto/etc/jvm.config
 cp /etc/presto/log.properties /presto/etc/log.properties
+cp /etc/presto/node.properties /presto/etc/node.properties
+
 
 
 
