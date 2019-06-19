@@ -33,5 +33,5 @@ echo "presto-logs.http-request-log.pattern=*.log" >> /presto/etc/catalog/log.pro
 cp /presto/etc/catalog/log.properties /etc/presto/catalog/log.properties
 
 # move the bdlcl libraries
-cp /opt/bigstepdatalake-0.12.1/lib/* /presto/plugin/hive-hadoop2/
+cp /opt/bigstepdatalake-0.12.3/lib/* /presto/plugin/hive-hadoop2/
 rm /presto/plugin/hive-hadoop2/aws-java-sdk-1.7.4.jar
