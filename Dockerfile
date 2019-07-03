@@ -1,5 +1,4 @@
-#FROM openjdk:8-jre-slim
-FROM ubuntu:16.04
+FROM openjdk:8-jre-slim
 
 ENV PRESTO_VERSION=311
 ENV BDLCL_VERSION=0.12.3
@@ -17,7 +16,7 @@ ENV PRESTO_USER presto
 ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated curl wget less openjdk-8-jdk && \
+    apt-get install -y --allow-unauthenticated curl wget less && \
     apt-get clean && rm -rf /var/lib/apt/lists/* 
     
 USER root
