@@ -8,11 +8,8 @@ ENV PRESTO_USER presto
 ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
 ENV PATH $PATH:$PRESTO_HOME/bin
 
-#ENV PRESTO_HOME /opt/presto
 ENV BDLCL_HOME /opt/bigstepdatalake-$BDLCL_VERSION
 ENV PRESTO_USER presto
-#ENV PRESTO_CONF_DIR ${PRESTO_HOME}/etc
-#ENV PATH $PATH:$PRESTO_HOME/bin
 ENV PYTHON2_DEBIAN_VERSION 2.7.13-2
 
 RUN apt-get update && \
@@ -43,7 +40,7 @@ RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSI
     wget https://repo.lentiq.com/bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     tar xzvf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     rm -rf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
-   # cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/ && \
+    cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/ && \
     mkdir /etc/presto 
        
 ADD presto.sh /etc/presto/
