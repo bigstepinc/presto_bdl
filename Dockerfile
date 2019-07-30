@@ -44,7 +44,7 @@ RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSI
     rm $PRESTO_HOME/plugin/hive-hadoop2/aws-java-sdk-1.7.4.jar && \
     mkdir /etc/presto 
        
-ADD presto.sh /etc/presto/
+ADD presto.sh /etc/presto/docker-presto.sh
 ADD healthcheck.sh /etc/presto/
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && cd /usr/local/bin \
 	&& rm -rf idle pydoc python python-config && \
 	chmod 777 -R /etc/presto && \
-	chmod 777 /etc/presto/presto.sh && \
+	chmod 777 /etc/presto/docker-presto.sh && \
 	chmod 777 /etc/presto/healthcheck.sh
  
 
@@ -62,4 +62,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #      PrestoUI
 EXPOSE 8080
 
-CMD ["launcher", "run"]
+CMD ["]
