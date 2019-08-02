@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cp /etc/presto/*.properties /presto/etc
-cp /etc/presto/*.config /presto/etc
-cp /etc/presto/catalog/*properties /presto/etc/catalog
+cp --verbose /etc/presto/*.properties /presto/etc
+cp --verbose /etc/presto/*.config /presto/etc
+cp --verbose /etc/presto/catalog/*properties /presto/etc/catalog
