@@ -62,4 +62,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #      PrestoUI
 EXPOSE 8080
 
-CMD ["/bin/bash", "/etc/presto/docker-presto.sh"]
+ENTRYPOINT ["/bin/bash /etc/presto/docker-presto.sh"]
