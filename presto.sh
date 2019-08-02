@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp /etc/presto/*.properties $PRESTO_CONF_DIR
-cp /etc/presto/*.config $PRESTO_CONF_DIR
-cp /etc/presto/catalog/*properties $PRESTO_CONF_DIR/catalog
+cp /etc/presto/*.properties /presto/etc
+cp /etc/presto/*.config /presto/etc
+cp /etc/presto/catalog/*properties /presto/etc/catalog
 launcher run
