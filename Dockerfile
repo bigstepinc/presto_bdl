@@ -46,6 +46,7 @@ RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSI
        
 ADD presto.sh /etc/presto/docker-presto.sh
 ADD healthcheck.sh /etc/presto/
+ADD entrypoint.sh /opt
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		python="${PYTHON2_DEBIAN_VERSION}" \
@@ -54,13 +55,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf idle pydoc python python-config && \
 	chmod 777 -R /etc/presto && \
 	chmod 777 /etc/presto/docker-presto.sh && \
-	chmod 777 /etc/presto/healthcheck.sh
+	chmod 777 /etc/presto/healthcheck.sh && \
+	chmod 777 /opt/entrypoint.sh
 RUN cp /etc/presto/docker-presto.sh /tmp && \
-    chmod 777 /tmp/docker-presto.sh
+    chmod 777 /tmp/docker-presto.sh 
+    
 
 #USER $PRESTO_USER
 
 #      PrestoUI
 EXPOSE 8080
 
-ENTRYPOINT ["./tmp/docker-presto.sh"]
+ENTRYPOINT ["./opt/entrypoint.sh"]
