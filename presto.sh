@@ -2,6 +2,8 @@
 
 #ls /etc/presto/catalog
 
+rm -rf /presto/etc
+
 ln -s /etc/presto /presto/etc
 #ln -s /etc/presto/log.properties /presto/etc/log.properties
 #ln -s /etc/presto/node.properties /presto/etc/node.properties
