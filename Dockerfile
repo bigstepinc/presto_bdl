@@ -55,7 +55,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	chmod 777 -R /etc/presto && \
 	chmod 777 /etc/presto/docker-presto.sh && \
 	chmod 777 /etc/presto/healthcheck.sh
-RUN cp /etc/presto/docker-presto.sh /tmp &&
+RUN cp /etc/presto/docker-presto.sh /tmp && \
     chmod 777 /tmp/docker-presto.sh
 
 #USER $PRESTO_USER
