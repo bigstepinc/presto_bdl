@@ -2,9 +2,9 @@
 
 #ls /etc/presto/catalog
 
-rm -rf /presto/etc
+#rm -rf /presto/etc
 
-ln -s /etc/presto /presto/etc
+#ln -s /etc/presto /presto/etc
 #ln -s /etc/presto/log.properties /presto/etc/log.properties
 #ln -s /etc/presto/node.properties /presto/etc/node.properties
 
@@ -15,6 +15,7 @@ ln -s /etc/presto /presto/etc
 
 #ls /etc/presto/catalog
 
-#cp --verbose /etc/presto/*.properties /presto/etc
-#cp --verbose /etc/presto/*.config /presto/etc
-#cp --verbose /etc/presto/catalog/*properties /presto/etc/catalog
+#
+cp --verbose /etc/presto/*.properties /presto/etc
+cp --verbose /etc/presto/*.config /presto/etc
+cp --verbose /etc/presto/catalog/*properties /presto/etc/catalog
