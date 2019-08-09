@@ -15,6 +15,16 @@ rm /presto/etc/data/plugin/hive-hadoop2/jackson-core-2.9.8.jar
 rm /presto/etc/data/plugin/hive-hadoop2/jackson-databind-2.9.8.jar	
 rm /presto/etc/data/plugin/hive-hadoop2/jackson-datatype-joda-2.9.8.jar
 
+
+
+rm /opt/bigstepdatalake-0.12.3/lib/bdl-client-libraries-0.12.3.jar
+rm /presto/plugin/hive-hadoop2/bdl-client-libraries-0.12.3.jar
+
+wget https://repo.lentiq.com/bdl-client-libraries-0.12.3.test.jar
+cp bdl-client-libraries-0.12.3.test.jar /opt/bigstepdatalake-0.12.3/lib/
+cp bdl-client-libraries-0.12.3.test.jar  /presto/plugin/hive-hadoop2/
+cp bdl-client-libraries-0.12.3.test.jar /presto/etc/data/plugin/hive-hadoop2/
+
 ./tmp/docker-presto.sh
 
 launcher run
