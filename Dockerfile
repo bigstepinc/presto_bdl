@@ -41,7 +41,7 @@ RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSI
     tar xzvf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     rm -rf bigstepdatalake-$BDLCL_VERSION-bin.tar.gz && \
     cp $BDLCL_HOME/lib/* $PRESTO_HOME/plugin/hive-hadoop2/ && \
-    rm $PRESTO_HOME/plugin/hive-hadoop2/aws-java-sdk-1.7.4.jar && \
+    #rm $PRESTO_HOME/plugin/hive-hadoop2/aws-java-sdk-1.7.4.jar && \
     mkdir /etc/presto 
        
 ADD presto.sh /etc/presto/docker-presto.sh
