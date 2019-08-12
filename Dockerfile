@@ -31,7 +31,7 @@ RUN wget https://github.com/prestosql/presto/archive/0.$PRESTO_VERSION.tar.gz &&
    # mv presto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
    # rm -rf presto-server-${PRESTO_VERSION} && \
     tar xzvf 0.$PRESTO_VERSION.tar.gz && \
-    rm presto-0.$PRESTO_VERSION.tar.gz && \
+    rm 0.$PRESTO_VERSION.tar.gz && \
     mv presto-0.${PRESTO_VERSION}/* $PRESTO_HOME && \
     rm -rf presto-0.${PRESTO_VERSION} && \
     mkdir -p ${PRESTO_CONF_DIR}/catalog/ && \
