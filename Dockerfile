@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:8-jre
 
 ENV PRESTO_VERSION=215
 ENV BDLCL_VERSION=0.12.3
