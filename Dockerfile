@@ -24,11 +24,16 @@ RUN useradd \
         --shell /bin/bash \
 		$PRESTO_USER
 
-RUN wget https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
-    tar xzvf presto-server-$PRESTO_VERSION.tar.gz && \
-    rm presto-server-$PRESTO_VERSION.tar.gz && \
-    mv presto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
-    rm -rf presto-server-${PRESTO_VERSION} && \
+RUN wget https://github.com/prestosql/presto/archive/0.$PRESTO_VERSION.tar.gz && \
+#https://repo1.maven.org/maven2/io/prestosql/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
+   # tar xzvf presto-server-$PRESTO_VERSION.tar.gz && \
+   # rm presto-server-$PRESTO_VERSION.tar.gz && \
+   # mv presto-server-${PRESTO_VERSION}/* $PRESTO_HOME && \
+   # rm -rf presto-server-${PRESTO_VERSION} && \
+    tar xzvf 0.$PRESTO_VERSION.tar.gz && \
+    rm 0.$PRESTO_VERSION.tar.gz && \
+    mv 0.${PRESTO_VERSION}/* $PRESTO_HOME && \
+    rm -rf 0.${PRESTO_VERSION} && \
     mkdir -p ${PRESTO_CONF_DIR}/catalog/ && \
     mkdir -p ${PRESTO_HOME}/data && \
     cd ${PRESTO_HOME}/bin && \
