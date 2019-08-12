@@ -36,9 +36,11 @@ RUN wget https://github.com/prestosql/presto/archive/0.$PRESTO_VERSION.tar.gz &&
     rm -rf presto-0.${PRESTO_VERSION} && \
     mkdir -p ${PRESTO_CONF_DIR}/catalog/ && \
     mkdir -p ${PRESTO_HOME}/data && \
+    mkdir -p ${PRESTO_HOME}/bin && \
     cd ${PRESTO_HOME}/bin && \
-    wget https://repo1.maven.org/maven2/io/prestosql/presto-cli/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
-    mv presto-cli-${PRESTO_VERSION}-executable.jar presto && \
+    #wget https://repo1.maven.org/maven2/io/prestosql/presto-cli/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
+    wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.$PRESTO_VERSION/presto-cli-0.$PRESTO_VERSION-executable.jar
+    mv presto-cli-0.$PRESTO_VERSION-executable.jar presto && \
     chmod +x presto && \
 #    chown -R ${PRESTO_USER}:${PRESTO_USER} $PRESTO_HOME && \ 
     cd /opt && \
