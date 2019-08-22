@@ -59,6 +59,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	chmod 777 /opt/entrypoint.sh
 RUN cp /etc/presto/docker-presto.sh /tmp && \
     chmod 777 /tmp/docker-presto.sh 
+
+#fix dependencies
+RUN rm /presto/plugin/hive-hadoop2/jackson-core-2.9.8.jar && \
+    rm /presto/plugin/hive-hadoop2/jackson-databind-2.9.8.jar && \
+    rm /presto/plugin/hive-hadoop2/jackson-datatype-joda-2.9.8.jar 
     
 
 #USER $PRESTO_USER
